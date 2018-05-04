@@ -1,0 +1,31 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Device Tree Source for LiNova1 CTP 4.3" HMI
+ *
+ * Copyright (C) 2018 Micronova srl
+ *   Author: Giulio Benetti <giulio.benetti@micronovasrl.com>
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/interrupt-controller/irq.h>
+
+&i2c2 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2c2_pins_a>;
+	status = "okay";
+
+	ft5x: touchscreen@38 {
+		compatible = "edt,edt-ft5306";
+		reg = <0x38>;
+		interrupt-parent = <&pio>;
+		interrupts = <7 2 IRQ_TYPE_EDGE_FALLING>; /* PH2 */
+		reset-gpios = <&pio 7 3 GPIO_ACTIVE_LOW>; /* PH3 */
+		touchscreen-size-x = <480>;
+		touchscreen-size-y = <272>;
+	};
+};
