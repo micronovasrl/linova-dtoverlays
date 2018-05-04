@@ -4,6 +4,10 @@ Mainline(4.17+) overlay example.
 __fragment__ etc.).
 .dts is the base device tree on with overlay will be applied.
 
+Base dts must be compiled here because if compiled with "make dtbs",
+no -@ is passed and then no __symbols__ are emitted.
+Then fdt parser can't connect overlay's nodes to base nodes.
+
 To compile:
 # make
 
